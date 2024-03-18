@@ -1,6 +1,4 @@
-export const environment: any = {
+export const environment = {
   production: false,
-  SERVICE_URL: 'https://localhost:8080/',
-  env: 'dev',
-  version: '1.0.0',
+  apiUrl: 'http://localhost:8080'
 };

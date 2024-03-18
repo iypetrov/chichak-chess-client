@@ -1,0 +1,23 @@
+<div class="register-container">
+  <h1>Register</h1>
+  <form [formGroup]="registerForm" class="register-form">
+    <mat-form-field>
+      <mat-label>Nickname</mat-label>
+      <input matInput type="nickname" formControlName="nickname" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required />
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-button color="primary" type="submit" (click)="sendRegisterRequest()">Register</button>
+    </div>
+    <div class="button-container">
+      <button mat-button color="primary" type="submit" (click)="navigateToLogin()">Already have an account?</button>
+    </div>
+  </form>
+</div>
