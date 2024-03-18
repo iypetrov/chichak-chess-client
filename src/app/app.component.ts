@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { EnvironmentService } from './services/util-services/environment/environment.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'chichak-chess-client';
+export class AppComponent implements OnInit {
+  constructor(private environmentService: EnvironmentService) {}
+
+  ngOnInit() {
+    this.environmentService.setVersion();
+  }
 }
