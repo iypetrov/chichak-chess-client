@@ -19,4 +19,8 @@ export class AuthApiService {
   sendLoginRequest(loginRequest: LoginRequest): Observable<Player> {
     return this.http.post<Player>(`${environment.apiUrl}/api/v1/login`, loginRequest);
   }
+
+  // sendLogoutRequest(): Observable<any> {
+  //   return this.http.post<any>(`${environment.apiUrl}/api/v1/logout`, null);
+  // }
 }

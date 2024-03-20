@@ -1,0 +1,47 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .toolbar-button {
+    margin-left: 10px;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+}
+
+.player-home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.toolbar-button {
+  background-color: white;
+}
+
+.game-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.play-button {
+  width: 300px;
+  height: 100px;
+  color: white;
+  background-color: #7B1FA2;
+}
+
+.play-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 300px;
+  height: 600px;
+}

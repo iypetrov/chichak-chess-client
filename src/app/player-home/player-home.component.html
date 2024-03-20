@@ -1,1 +1,14 @@
-<p>player-home works!</p>
+<mat-toolbar color="primary">
+  <mat-label>{{player?.nickname}}</mat-label>
+  <div class="spacer"></div>
+  <button mat-button color="primary" class="toolbar-button" type="submit" (click)="navigateToPlayerDetails()">
+    <mat-icon aria-hidden="false" aria-label="Player details" fontIcon="man4" class="icon"></mat-icon>
+  </button>
+  <button mat-button color="primary" class="toolbar-button" type="submit" (click)="logOut()">Logout</button>
+</mat-toolbar>
+<div class="player-home-container">
+  <div class="play-button-container">
+    <mat-label color="primary" class="game-title">chichak-chess.com</mat-label>
+    <button mat-button type="submit" (click)="logOut()" class="play-button">Play</button>
+  </div>
+</div>

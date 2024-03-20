@@ -1,0 +1,40 @@
+<div class="player-details-container">
+  <button mat-button color="primary" class="toolbar-button" type="submit" (click)="navigateToPlayerHome()">Go back</button>
+  <mat-label>ID: {{player?.id}}</mat-label>
+  <mat-label>Nickname: {{player?.nickname}}</mat-label>
+  <mat-label>Email: {{player?.email}}</mat-label>
+  <mat-label>Role: {{player?.role}}</mat-label>
+  <mat-label>Points: {{player?.points}}</mat-label>
+  <div class="player-color">
+    <mat-label>Bright color:</mat-label>
+    <div [style.background-color]="player?.playerPreference?.brightColor" style="width: 20px; height: 20px;"></div>
+  </div>
+  <div class="player-color">
+    <mat-label>Dark color:</mat-label>
+    <div [style.background-color]="player?.playerPreference?.darkColor" style="width: 20px; height: 20px;"></div>
+  </div>
+  <table class="player-history-container" mat-table aria-label="player's game history" [dataSource]="dataSource">
+    <ng-container matColumnDef="Game ID">
+      <th mat-header-cell *matHeaderCellDef> Game ID</th>
+      <td mat-cell *matCellDef="let element">{{element.gameID}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Opponent ID">
+      <th mat-header-cell *matHeaderCellDef> Opponent ID</th>
+      <td mat-cell *matCellDef="let element">{{element.opponentID}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Color">
+      <th mat-header-cell *matHeaderCellDef> Color</th>
+      <td mat-cell *matCellDef="let element">
+        <div [style.background-color]="element.isDraw ? 'gray' : (element.isWinner ? 'green' : 'red')" style="width: 20px; height: 20px;"></div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['Game ID', 'Opponent ID', 'Color']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['Game ID', 'Opponent ID', 'Color'];"></tr>
+  </table>
+  <mat-card-footer>
+    <mat-paginator [pageSizeOptions]="[5,10,20]"></mat-paginator>
+  </mat-card-footer>
+</div>
