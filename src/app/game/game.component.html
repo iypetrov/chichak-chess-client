@@ -1,0 +1,13 @@
+<div class="game-container">
+  <mat-label class="game-id-title">{{gameState?.boardState + " " + gameState?.activeColor?.charAt(0)?.toLowerCase() + " " + gameState?.castleAvailability + " " + gameState?.enPassantTargetSquare + " " + gameState?.halfmoveClock + " " + gameState?.fullmoveNumber}}</mat-label>
+  <mat-label>{{playerParticipation?.color}}</mat-label>
+  <form class="game-form">
+    <mat-form-field class="game-full-width">
+      <mat-label>Movement</mat-label>
+      <input matInput placeholder="Enter your move here" #moveInput>
+    </mat-form-field>
+  </form>
+  <button mat-button class="game-movement-button" type="submit" (click)="makeMove(moveInput.value); moveInput.value=''" >Move</button>
+  <button mat-button class="game-surrender-button" type="submit" (click)="surrender()" >Surrender</button>
+</div>
+

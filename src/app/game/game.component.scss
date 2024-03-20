@@ -1,0 +1,34 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.game-full-width {
+  width: 100%;
+}
+
+.game-id-title {
+  color: #A51FA2;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.game-movement-button {
+  width: 500px;
+  margin-bottom: 20px;
+  background-color: green;
+}
+
+.game-surrender-button {
+  width: 500px;
+  background-color: darkred;
+}

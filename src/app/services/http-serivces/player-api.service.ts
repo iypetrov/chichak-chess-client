@@ -13,6 +13,10 @@ export class PlayerApiService {
     return this.http.get<Player>(`${environment.apiUrl}/api/v1/players/${id}`);
   }
 
+  getPlayerGameStatus(playerID: string, gameID: string): Observable<PlayerParticipantion> {
+    return this.http.get<PlayerParticipantion>(`${environment.apiUrl}/api/v1/game-participants/player?playerID=${playerID}&gameID=${gameID}`);
+  }
+
   getPlayerHistory(playerID: string, pageNumber: number, pageSize: number): Observable<PlayerParticipantion []> {
     return this.http.get<PlayerParticipantion[]>(`${environment.apiUrl}/api/v1/game-participants?playerID=${playerID}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }

@@ -8,6 +8,8 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {MatLabel} from "@angular/material/form-field";
 import {AuthApiService} from "../services/http-serivces/auth-api.service";
 import {MatIconModule} from "@angular/material/icon";
+import {GameApiService} from "../services/http-serivces/game-api.service";
+import {Game} from "../models/Game";
 
 @Component({
   selector: 'app-player-home',
@@ -28,12 +30,14 @@ export class PlayerHomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private gameApiService: GameApiService,
     private playerApiService: PlayerApiService,
     private authService: AuthApiService ) { }
   ngOnInit(): void {
     this.route.paramMap
       .subscribe((params: ParamMap): void => {
           const id = String(params.get('id'));
+          localStorage.setItem("playerID", id);
           this.playerApiService
             .getPlayerById(id)
             .subscribe({
@@ -43,6 +47,15 @@ export class PlayerHomeComponent implements OnInit {
             })
         }
       )
+  }
+
+  enrollGame() {
+    this.gameApiService.enrollGame(this.player?.id)
+      .subscribe({
+        next: (game: Game) => {
+          this.router.navigate(['/game', game.id]);
+        },
+      });
   }
 
   logOut() {
