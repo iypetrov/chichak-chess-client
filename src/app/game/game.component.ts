@@ -62,7 +62,12 @@ export class GameComponent implements OnInit {
       .getCurrentGameState(id!)
       .subscribe({
         next: (gameState: GameState): void => {
-          this.gameState = gameState;
+          if (this.gameState?.activeColor !== gameState?.activeColor) {
+            if (this.gameState?.boardState !== gameState?.boardState) {
+              console.log("game state was updated")
+              this.gameState = gameState;
+            }
+          }
         },
       })
   }
