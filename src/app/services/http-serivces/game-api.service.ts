@@ -29,4 +29,8 @@ export class GameApiService {
   getCurrentGameState(id: string): Observable<GameState> {
     return this.http.get<GameState>(`${environment.apiUrl}/api/v1/game/${id}`);
   }
+
+  surrenderGame(id: string | undefined): Observable<GameState> {
+    return this.http.post<GameState>(`${environment.apiUrl}/api/v1/game/surrender/${id}`,null);
+  }
 }

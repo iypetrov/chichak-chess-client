@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {GameApiService} from "../services/http-serivces/game-api.service";
 import {GameState} from "../models/GameState";
@@ -9,6 +9,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {PlayerApiService} from "../services/http-serivces/player-api.service";
 import {PlayerParticipantion} from "../models/PlayerParticipantion";
+import {Subscription} from "rxjs";
 
 @Component({
   imports: [
@@ -24,9 +25,11 @@ import {PlayerParticipantion} from "../models/PlayerParticipantion";
   templateUrl: './game.component.html'
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   gameState: GameState | undefined;
   playerParticipation: PlayerParticipantion | undefined;
+  timerInterval: any;
+  routeSubscription: Subscription | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +40,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.startTimer();
-    this.route.paramMap
+    this.routeSubscription = this.route.paramMap
       .subscribe((params: ParamMap): void => {
           const gameID = String(params.get('id'));
           this.playerApiService.getPlayerGameStatus(localStorage.getItem("playerID")!, gameID)
@@ -50,10 +53,23 @@ export class GameComponent implements OnInit {
       )
   }
 
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+    this.stopTimer();
+  }
+
   startTimer() {
-    setInterval(() => {
+    this.timerInterval = setInterval(() => {
       this.refreshBoard();
     }, 1000);
+  }
+
+  stopTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
   }
 
   refreshBoard() {
@@ -66,6 +82,7 @@ export class GameComponent implements OnInit {
             if (this.gameState?.boardState !== gameState?.boardState) {
               console.log("game state was updated")
               this.gameState = gameState;
+              this.navigateToPlayerHomePageIfGameIsFinished();
             }
           }
         },
@@ -78,11 +95,24 @@ export class GameComponent implements OnInit {
       .subscribe({
         next: (gameState: GameState): void => {
           this.gameState = gameState;
+          this.navigateToPlayerHomePageIfGameIsFinished();
         },
       })
   }
 
   surrender() {
+    this.gameApiService.surrenderGame(this.playerParticipation?.playerID)
+      .subscribe({
+        next: (gameState: GameState): void => {
+          this.gameState = gameState;
+          this.navigateToPlayerHomePageIfGameIsFinished();
+        },
+      })
+  }
 
+  navigateToPlayerHomePageIfGameIsFinished() {
+    if (this.gameState?.isFinal == true || this.gameState?.isFinal == null) {
+      this.router.navigate(['/player-home', this.playerParticipation?.playerID]);
+    }
   }
 }
